@@ -4,6 +4,7 @@ const user = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');    
+const  authMiddleware  = require('../middlewares/authMiddlewares');
 
 
 
@@ -56,7 +57,9 @@ router.post('/login', async(req,res)=>{
             })
         }
 
-        const token  = jwt.sign({userId : user._id} , process.env.secret_key_jwt , {expiresIn : "1d"});
+        const token = jwt.sign({ userId: userExists._id }, process.env.secret_key_jwt, {
+            expiresIn: "1d",
+          });
 
         res.send({
             success:true,
@@ -67,6 +70,18 @@ router.post('/login', async(req,res)=>{
     } catch (error) {
         console.log(error);
     }
+})
+
+//router-level-middleware
+router.get('/get-current-user',authMiddleware, async (req,res)=>{
+    console.log(req.body.userId);
+    const currentUser = await user.findById(req.body.userId).select('-password'); 
+
+    res.send({
+        success:true,
+        message:"you are authorized to go to the protected route",
+        data:currentUser
+    })
 })
 
 module.exports=router;
