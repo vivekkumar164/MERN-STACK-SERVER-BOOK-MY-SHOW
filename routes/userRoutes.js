@@ -74,7 +74,7 @@ router.post('/login', async(req,res)=>{
 
 //router-level-middleware
 router.get('/get-current-user',authMiddleware, async (req,res)=>{
-    console.log(req.body.userId);
+    console.log('req.body.userId --------->',req.body.userId);
     const currentUser = await user.findById(req.body.userId).select('-password'); 
 
     res.send({
