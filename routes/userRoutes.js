@@ -73,15 +73,14 @@ router.post('/login', async(req,res)=>{
 })
 
 //router-level-middleware
-router.get('/get-current-user',authMiddleware, async (req,res)=>{
-    console.log('req.body.userId --------->',req.body.userId);
-    const currentUser = await user.findById(req.body.userId).select('-password'); 
-
+router.get("/get-current-user", authMiddleware, async (req, res) => {
+    const user1 = await user.findById(req.body.userId).select("-password");
+  
     res.send({
-        success:true,
-        message:"you are authorized to go to the protected route",
-        data:currentUser
-    })
-})
+      success: true,
+      message: 'You are authorized to go to the protected route!',
+      data: user1
+     })
+  });
 
 module.exports=router;
