@@ -75,7 +75,9 @@ router.post("/get-all-theatres-by-movie", async (req, res) => {
         const {movie, date} = req.body;
         // First get all the shows of the selected date
         const shows = await Show.find({movie, date}).populate('theatre');
-
+        console.log(shows);
+        
+        debugger
         // Filter out the unique theatres now
         let uniqueTheatres = [];
         shows.forEach(show => {

@@ -19,11 +19,11 @@ const theatreSchema = new mongoose.Schema({
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'User'
     },
     isActive: {
         type: Boolean,
-        default: false
+        default: true
     },
 },
 {timestamps: true}

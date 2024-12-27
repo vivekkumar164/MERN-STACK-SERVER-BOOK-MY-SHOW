@@ -27,6 +27,7 @@ router.get('/get-all-theatres', async (req, res) => {
             data: allTheatres
         });
     }catch(err){
+        console.log(err.message);
         res.send({
             success: false,
             message: err.message
